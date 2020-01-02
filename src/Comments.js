@@ -32,7 +32,7 @@ class Comments extends React.Component {
   componentDidMount() {
     fetch("https://react-workshop-zygo-api.herokuapp.com/")
       .then(response => response.json())
-      .then(json => this.setState({ comments: json.slice(0,10), loading: false }))
+      .then(json => this.setState({ comments: json, loading: false }))
   }
 
   render() {
