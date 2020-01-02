@@ -10,7 +10,7 @@ class Email extends React.Component {
   render() {
     return (
       <div>
-        <div class="small text-muted">{ this.props.comment.email }</div>
+        <div className="small text-muted">{ this.props.comment.email }</div>
         { this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
