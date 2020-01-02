@@ -19,6 +19,14 @@ class Comments extends React.Component {
     this.setState({ comments });
   }
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/comments")
+      .then(response => response.json())
+      .then(json =>
+        this.setState({ comments: json, loading: false })
+      );
+  }
+
   render() {
     const { loading, comments, pageNumber } = this.state;
 
@@ -30,7 +38,7 @@ class Comments extends React.Component {
       return <h3 className="text-center my-5">Nenhum comentário</h3>;
     }
 
-    const pageSize = 3;
+    const pageSize = 4;
     const pageStart = pageNumber * pageSize;
     const pageEnd = pageStart + pageSize;
     const pageComments = comments.slice(pageStart, pageEnd);
@@ -38,15 +46,18 @@ class Comments extends React.Component {
 
     return (
       <div className="my-5">
-        <div>
+        <div class="row">
           {pageComments.map(comment => (
-            <Comment
-              key={comment.id}
-              deleteComment={this.deleteComment.bind(this)}
-              comment={comment}
-            />
+            <div class="col-12 col-lg-6">
+              <Comment
+                key={comment.id}
+                deleteComment={this.deleteComment.bind(this)}
+                comment={comment}
+              />
+            </div>
           ))}
         </div>
+
         <div className="text-center">
           <button
             disabled={pageNumber === 0}
@@ -55,7 +66,11 @@ class Comments extends React.Component {
           >
             Anterior
           </button>
-          {pageNumber + 1}/{lastPage + 1}
+
+          <div className="btn btn-sm btn-outline-primary">
+            {pageNumber + 1} / {lastPage + 1}
+          </div>
+
           <button
             disabled={pageNumber === lastPage}
             onClick={() => this.changePage(pageNumber + 1)}
@@ -66,14 +81,6 @@ class Comments extends React.Component {
         </div>
       </div>
     );
-  }
-
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/comments")
-      .then(response => response.json())
-      .then(json =>
-        this.setState({ comments: json.slice(0, 10), loading: false })
-      );
   }
 }
 

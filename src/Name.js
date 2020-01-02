@@ -26,7 +26,7 @@ class Name extends React.Component {
   render() {
     return (
       <div>
-        <h5>{this.props.comment.name}</h5>
+        <h5 className="mr-5">{this.props.comment.name}</h5>
         {this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
