@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,OACE,iBAAkB,CAClB,QAAS,CACT,UACF","file":"main.996aa60b.chunk.css","sourcesContent":[".trash{\n  position: absolute;\n  top: 15px;\n  right: 15px;\n}\n"]}
