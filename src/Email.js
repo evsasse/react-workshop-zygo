@@ -4,8 +4,24 @@ import Body from './Body';
 
 class Email extends React.Component {
   state = {
-    loading: true
+    loading: true,
+    setTimeoutId: null
   };
+
+  componentDidMount() {
+    const setTimeoutId = setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
+
+    this.setState({ setTimeoutId });
+  }
+
+  componentWillUnmount() {
+    const { setTimeoutId } = this.state;
+    if(setTimeoutId) {
+      clearTimeout(setTimeoutId)
+    }
+  }
 
   render() {
     return (
@@ -21,12 +37,6 @@ class Email extends React.Component {
         ) }
       </div>
     );
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 1000);
   }
 }
 
