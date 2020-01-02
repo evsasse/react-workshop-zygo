@@ -3,9 +3,12 @@ import React from 'react';
 class Body extends React.Component {
   render() {
     return (
-      <div>
+      <p className="mb-0 mt-3">
         { this.props.comment.body }
-      </div>
+        <button className="btn btn-sm btn-outline-danger trash">
+          <i className="far fa-trash-alt" />
+        </button>
+      </p>
     );
   }
 }

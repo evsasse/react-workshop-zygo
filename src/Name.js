@@ -10,8 +10,12 @@ class Name extends React.Component {
   render() {
     return (
       <div>
-        { this.props.comment.name }
-        { !this.state.loading && <Email comment={ this.props.comment } /> }
+        <h5>{ this.props.comment.name }</h5>
+        { this.state.loading ? (
+          <i className="fas fa-atom fa-spin" />
+        ) : (
+          <Email comment={ this.props.comment } />
+        ) }
       </div>
     );
   }
