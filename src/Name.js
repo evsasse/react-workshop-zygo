@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import Email from './Email';
+import Email from "./Email";
 
 class Name extends React.Component {
   state = {
     loading: true,
-    setTimeoutId: null,
+    setTimeoutId: null
   };
 
   componentDidMount() {
@@ -18,23 +18,23 @@ class Name extends React.Component {
 
   componentWillUnmount() {
     const { setTimeoutId } = this.state;
-    if(setTimeoutId) {
-      clearTimeout(setTimeoutId)
+    if (setTimeoutId) {
+      clearTimeout(setTimeoutId);
     }
   }
 
   render() {
     return (
       <div>
-        <h5>{ this.props.comment.name }</h5>
-        { this.state.loading ? (
+        <h5>{this.props.comment.name}</h5>
+        {this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
           <Email
             deleteComment={this.props.deleteComment}
-            comment={ this.props.comment }
+            comment={this.props.comment}
           />
-        ) }
+        )}
       </div>
     );
   }

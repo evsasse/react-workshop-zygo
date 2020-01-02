@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import Comment from './Comment';
+import Comment from "./Comment";
 
 class Comments extends React.Component {
   state = {
     comments: null,
     loading: true,
     pageNumber: 0
-  }
+  };
 
   changePage(number) {
     this.setState({ pageNumber: number });
   }
 
   deleteComment(id) {
-    const comments = this.state.comments.filter((comment) =>  comment.id !== id );
+    const comments = this.state.comments.filter(comment => comment.id !== id);
 
-    this.setState({ comments })
+    this.setState({ comments });
   }
 
   render() {
@@ -39,28 +39,26 @@ class Comments extends React.Component {
     return (
       <div className="my-5">
         <div>
-          { pageComments.map((comment) =>
+          {pageComments.map(comment => (
             <Comment
-              key={ comment.id }
+              key={comment.id}
               deleteComment={this.deleteComment.bind(this)}
-              comment={ comment }
+              comment={comment}
             />
-          )}
+          ))}
         </div>
         <div className="text-center">
           <button
-            disabled={ pageNumber === 0 }
-            onClick={ () => this.changePage(pageNumber - 1) }
+            disabled={pageNumber === 0}
+            onClick={() => this.changePage(pageNumber - 1)}
             className="btn btn-sm mx-2 btn-primary"
           >
             Anterior
           </button>
-          { pageNumber + 1 }
-          /
-          { lastPage + 1 }
+          {pageNumber + 1}/{lastPage + 1}
           <button
-            disabled={ pageNumber === lastPage }
-            onClick={ () => this.changePage(pageNumber + 1) }
+            disabled={pageNumber === lastPage}
+            onClick={() => this.changePage(pageNumber + 1)}
             className="btn btn-sm btn-primary mx-2"
           >
             Próximo
@@ -71,9 +69,11 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/comments')
+    fetch("https://jsonplaceholder.typicode.com/comments")
       .then(response => response.json())
-      .then(json => this.setState({ comments: json.slice(0, 10), loading: false }))
+      .then(json =>
+        this.setState({ comments: json.slice(0, 10), loading: false })
+      );
   }
 }
 

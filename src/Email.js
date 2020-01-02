@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Body from './Body';
+import Body from "./Body";
 
 class Email extends React.Component {
   state = {
@@ -18,23 +18,23 @@ class Email extends React.Component {
 
   componentWillUnmount() {
     const { setTimeoutId } = this.state;
-    if(setTimeoutId) {
-      clearTimeout(setTimeoutId)
+    if (setTimeoutId) {
+      clearTimeout(setTimeoutId);
     }
   }
 
   render() {
     return (
       <div>
-        <div className="small text-muted">{ this.props.comment.email }</div>
-        { this.state.loading ? (
+        <div className="small text-muted">{this.props.comment.email}</div>
+        {this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
           <Body
             deleteComment={this.props.deleteComment}
-            comment={ this.props.comment }
+            comment={this.props.comment}
           />
-        ) }
+        )}
       </div>
     );
   }

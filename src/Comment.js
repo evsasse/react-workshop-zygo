@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Name from './Name';
+import Name from "./Name";
 
 class Comment extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class Comment extends React.Component {
         <div className="card-body">
           <Name
             deleteComment={this.props.deleteComment}
-            comment={ this.props.comment }
+            comment={this.props.comment}
           />
         </div>
       </div>
