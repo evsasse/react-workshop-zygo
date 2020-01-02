@@ -13,11 +13,21 @@ class Comments extends React.Component {
     this.setState({ pageNumber: number });
   }
 
+  deleteComment(id) {
+    const comments = this.state.comments.filter((comment) =>  comment.id !== id );
+
+    this.setState({ comments })
+  }
+
   render() {
     const { loading, comments, pageNumber } = this.state;
 
     if (loading) {
-      return <h1>Carregando...</h1>;
+      return <h3 className="text-center my-5">Carregando...</h3>;
+    }
+
+    if (comments.length === 0) {
+      return <h3 className="text-center my-5">Nenhum comentário</h3>;
     }
 
     const pageSize = 3;
@@ -29,7 +39,13 @@ class Comments extends React.Component {
     return (
       <div className="my-5">
         <div>
-          { pageComments.map((comment) => <Comment key={ comment.id } comment={ comment }/>) }
+          { pageComments.map((comment) =>
+            <Comment
+              key={ comment.id }
+              deleteComment={this.deleteComment.bind(this)}
+              comment={ comment }
+            />
+          )}
         </div>
         <div className="text-center">
           <button

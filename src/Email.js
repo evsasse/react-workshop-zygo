@@ -14,7 +14,10 @@ class Email extends React.Component {
         { this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
-          <Body comment={ this.props.comment } />
+          <Body
+            deleteComment={this.props.deleteComment}
+            comment={ this.props.comment }
+          />
         ) }
       </div>
     );

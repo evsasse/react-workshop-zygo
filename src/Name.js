@@ -14,7 +14,10 @@ class Name extends React.Component {
         { this.state.loading ? (
           <i className="fas fa-atom fa-spin" />
         ) : (
-          <Email comment={ this.props.comment } />
+          <Email
+            deleteComment={this.props.deleteComment}
+            comment={ this.props.comment }
+          />
         ) }
       </div>
     );
