@@ -8,7 +8,8 @@ class Comments extends React.Component {
   state = {
     comments: [],
     loading: true,
-    pageNumber: 0
+    pageNumber: 0,
+    error: null,
   };
 
   changePage(number) {
@@ -29,18 +30,27 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/comments")
+    fetch("https://react-workshop-zygo-api.herokuapp.com/")
       .then(response => response.json())
-      .then(json =>
-        this.setState({ comments: json.slice(0,10), loading: false })
-      );
+      .then(json => this.setState({ comments: json.slice(0,10), loading: false }))
   }
 
   render() {
-    const { loading, comments, pageNumber } = this.state;
+    const { loading, comments, pageNumber, error } = this.state;
 
     if (loading) {
-      return <h3 className="text-center my-5">Carregando...</h3>;
+      return (
+        <h3 className="text-center my-5">
+          <i className="fas fa-atom fa-spin fa-4x" />
+          <br />
+          <br />
+          Carregando...
+        </h3>
+      );
+    }
+
+    if (error) {
+      return <h3 className="text-center my-5">Erro ao carregar :(</h3>;
     }
 
     if (comments.length === 0) {
