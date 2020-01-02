@@ -2,9 +2,11 @@ import React from "react";
 
 import Comment from "./Comment";
 
+const pageSize = 4;
+
 class Comments extends React.Component {
   state = {
-    comments: null,
+    comments: [],
     loading: true,
     pageNumber: 0
   };
@@ -14,16 +16,23 @@ class Comments extends React.Component {
   }
 
   deleteComment(id) {
-    const comments = this.state.comments.filter(comment => comment.id !== id);
+    const { pageNumber, comments } = this.state;
 
-    this.setState({ comments });
+    const newComments = comments.filter(comment => comment.id !== id);
+    const newPageNumber = Math.min(pageNumber, this.lastPageNumber(newComments));
+
+    this.setState({ comments: newComments, pageNumber: newPageNumber });
+  }
+
+  lastPageNumber(comments) {
+    return parseInt((comments.length - 1) / pageSize);
   }
 
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/comments")
       .then(response => response.json())
       .then(json =>
-        this.setState({ comments: json, loading: false })
+        this.setState({ comments: json.slice(0,10), loading: false })
       );
   }
 
@@ -38,19 +47,20 @@ class Comments extends React.Component {
       return <h3 className="text-center my-5">Nenhum comentário</h3>;
     }
 
-    const pageSize = 4;
     const pageStart = pageNumber * pageSize;
     const pageEnd = pageStart + pageSize;
     const pageComments = comments.slice(pageStart, pageEnd);
-    const lastPage = parseInt(comments.length / pageSize);
+    const lastPage = this.lastPageNumber(comments);
 
     return (
       <div className="my-5">
-        <div class="row">
+        <div className="row">
           {pageComments.map(comment => (
-            <div class="col-12 col-lg-6">
+            <div
+              key={comment.id}
+              className="col-12 col-lg-6"
+            >
               <Comment
-                key={comment.id}
                 deleteComment={this.deleteComment.bind(this)}
                 comment={comment}
               />
